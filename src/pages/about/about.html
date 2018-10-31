@@ -1,11 +1,37 @@
+
 <ion-header>
   <ion-navbar>
     <ion-title>
-      About
+      List
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="adddata()" ><ion-icon name="add-circle"></ion-icon></button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
+   <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list *ngFor="let item of mark">
+    <ion-item>
+        <ion-avatar item-start>
+            <img src="http://markmaps.000webhostapp.com/assets/warteg.png">
+          </ion-avatar>
+          <h2>{{item.name}}</h2>
+          <h3>{{item.title}}</h3>
+          <p>latitude :{{item.lat}} </p>
+           <p>longitude : {{item.lon}}</p>
+           <div item-end>
+             <ion-icon  name="create" (click)="edit(item)" ></ion-icon>
+             <ion-icon  color="danger"  (click)="del(item.id)" name="cut"></ion-icon>
+           </div>
+      </ion-item>
+  </ion-list>
 </ion-content>
